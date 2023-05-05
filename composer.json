@@ -1,13 +1,23 @@
 {
-  "name": "webman-tech/crontab",
+  "name": "webman-tech/crontab-task",
   "type": "library",
   "license": "MIT",
-  "description": "Webman plugin webman-tech/crontab",
-  "require": {
-  },
+  "description": "Webman plugin webman-tech/crontab-task",
   "autoload": {
     "psr-4": {
-      "WebmanTech\\Crontab\\": "src"
+      "WebmanTech\\CrontabTask\\": "src"
     }
+  },
+  "require": {
+    "php": ">=7.2",
+    "psr/log": "^1.1",
+    "workerman/crontab": "^1.0"
+  },
+  "require-dev": {
+    "webman/console": "^1.2",
+    "workerman/webman-framework": "^1.5"
+  },
+  "config": {
+    "sort-packages": true
   }
 }

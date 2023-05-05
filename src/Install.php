@@ -1,5 +1,5 @@
 <?php
-namespace WebmanTech\Crontab;
+namespace WebmanTech\CrontabTask;
 
 class Install
 {
@@ -9,7 +9,7 @@ class Install
      * @var array
      */
     protected static $pathRelation = array (
-  'config/plugin/webman-tech/crontab' => 'config/plugin/webman-tech/crontab',
+  'config/plugin/webman-tech/crontab-task' => 'config/plugin/webman-tech/crontab-task',
 );
 
     /**
