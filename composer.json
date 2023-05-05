@@ -1,0 +1,13 @@
+{
+  "name": "webman-tech/crontab",
+  "type": "library",
+  "license": "MIT",
+  "description": "Webman plugin webman-tech/crontab",
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "WebmanTech\\Crontab\\": "src"
+    }
+  }
+}
