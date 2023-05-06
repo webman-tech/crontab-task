@@ -9,7 +9,7 @@
     }
   },
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.4",
     "psr/log": "^1.1",
     "workerman/crontab": "^1.0"
   },

@@ -2,11 +2,12 @@
 
 namespace WebmanTech\CrontabTask\Commands;
 
+use support\Container;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use WebmanTech\CrontabTask\BaseTask;
+use WebmanTech\CrontabTask\TaskProcess;
 
 class CrontabTaskListCommand extends Command
 {
@@ -20,18 +21,20 @@ class CrontabTaskListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $headers = ['name', 'class', 'interval'];
+        $headers = ['process_name', 'cron', 'task_class'];
 
         $rows = [];
         $processes = config('plugin.webman-tech.crontab-task.process', []);
         foreach ($processes as $name => $item) {
             $handler = $item['handler'];
-            if (!is_a($handler, BaseTask::class, true)) {
+            if (!is_a($handler, TaskProcess::class, true)) {
                 continue;
             }
-            /** @var BaseTask $process */
-            $process = new $handler();
-            $rows[] = [$name, $handler, $process->getCrontab()];
+            /** @var TaskProcess $process */
+            $process = Container::make($handler, $item['constructor'] ?? []);
+            foreach ($process->getTasks() as [$cron, $task]) {
+                $rows[] = [$name, $cron, $task];
+            }
         }
 
         $table = new Table($output);
