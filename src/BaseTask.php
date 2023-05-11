@@ -2,6 +2,7 @@
 
 namespace WebmanTech\CrontabTask;
 
+use Closure;
 use Psr\Log\LoggerInterface;
 use support\Log;
 use Throwable;
@@ -30,6 +31,14 @@ abstract class BaseTask
      * @var LoggerInterface
      */
     protected $logger;
+    /**
+     * @var null|Closure
+     */
+    protected $eventBeforeExec = null;
+    /**
+     * @var null|Closure
+     */
+    protected $eventAfterExec = null;
 
     final public function __construct()
     {
@@ -42,6 +51,12 @@ abstract class BaseTask
         if ($this->logClass === null) {
             $this->logClass = config('plugin.webman-tech.crontab-task.app.log.log_class', true);
         }
+        if ($this->eventBeforeExec === null) {
+            $this->eventBeforeExec = config('plugin.webman-tech.crontab-task.app.event.before_exec');
+        }
+        if ($this->eventAfterExec === null) {
+            $this->eventAfterExec = config('plugin.webman-tech.crontab-task.app.event.after_exec');
+        }
         $this->logger = Log::channel($this->logChannel);
     }
 
@@ -53,6 +68,9 @@ abstract class BaseTask
     {
         $self = new static();
         $self->log('start');
+        if ($self->eventBeforeExec instanceof Closure) {
+            call_user_func($self->eventBeforeExec, $self);
+        }
 
         try {
             $self->handle();
@@ -66,6 +84,9 @@ abstract class BaseTask
             return;
         }
 
+        if ($self->eventBeforeExec instanceof Closure) {
+            call_user_func($self->eventAfterExec, $self);
+        }
         $self->log('end');
     }
 
