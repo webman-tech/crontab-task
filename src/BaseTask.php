@@ -6,6 +6,7 @@ use Psr\Log\LoggerInterface;
 use support\Log;
 use Throwable;
 use WebmanTech\CrontabTask\Exceptions\TaskException;
+use WebmanTech\CrontabTask\Exceptions\TaskExceptionInterface;
 
 abstract class BaseTask
 {
@@ -55,10 +56,12 @@ abstract class BaseTask
 
         try {
             $self->handle();
-        } catch (TaskException $e) {
-            $self->log('TaskException:' . $e->getMessage() . $e->getDataAsString(), 'warning');
-            return;
         } catch (Throwable $e) {
+            if ($e instanceof TaskExceptionInterface) {
+                $self->log('TaskException:' . $e->getMessage() . $e->getDataAsString(), 'warning');
+                return;
+            }
+
             $self->log($e, 'error');
             return;
         }

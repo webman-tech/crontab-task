@@ -5,7 +5,7 @@ namespace WebmanTech\CrontabTask\Exceptions;
 use Exception;
 use Throwable;
 
-class TaskException extends Exception
+class TaskException extends Exception implements TaskExceptionInterface
 {
     protected $data = [];
 
