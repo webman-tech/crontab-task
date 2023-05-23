@@ -15,11 +15,11 @@ abstract class BaseTask
     /**
      * @var null|Closure
      */
-    protected $eventBeforeExec = null;
+    protected ?Closure $eventBeforeExec = null;
     /**
      * @var null|Closure
      */
-    protected $eventAfterExec = null;
+    protected ?Closure $eventAfterExec = null;
 
     final public function __construct()
     {
