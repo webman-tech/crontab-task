@@ -4,11 +4,8 @@ return [
     'enable' => true,
     'log' => [
         /**
-         * @see \WebmanTech\CrontabTask\BaseTask
-         * @see \WebmanTech\CrontabTask\Tasks\SampleTask
+         * @see \WebmanTech\CrontabTask\Traits\LogTrait::log()
          */
-        'channel' => 'default',
-        'level' => 'info',
-        'log_class' => true,
+        'channel' => null, // 为 null 时不记录日志
     ],
 ];

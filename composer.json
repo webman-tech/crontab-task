@@ -10,10 +10,10 @@
   },
   "require": {
     "php": ">=7.4",
-    "psr/log": "^1.1",
     "workerman/crontab": "^1.0"
   },
   "require-dev": {
+    "monolog/monolog": ">=2.0",
     "webman/console": "^1.2",
     "workerman/webman-framework": "^1.5"
   },
