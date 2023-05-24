@@ -55,7 +55,7 @@ abstract class BaseTask
             return;
         }
 
-        if ($self->eventBeforeExec instanceof Closure) {
+        if ($self->eventAfterExec instanceof Closure) {
             call_user_func($self->eventAfterExec, $self);
         }
         $self->log('end');
