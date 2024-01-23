@@ -27,7 +27,7 @@ class MakeTaskCommand extends Command
      * @param OutputInterface $output
      * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $name = $input->getArgument('name');
         $savePath = $this->savePath ?: config('plugin.webman-tech.crontab-task.app.command_make.save_path', 'crontab/tasks');
