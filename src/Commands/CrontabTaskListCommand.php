@@ -19,7 +19,7 @@ class CrontabTaskListCommand extends Command
      * @param OutputInterface $output
      * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $headers = ['process_name', 'cron', 'task_class'];
 
