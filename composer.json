@@ -8,16 +8,25 @@
       "WebmanTech\\CrontabTask\\": "src"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
   "require": {
     "php": ">=7.4",
     "workerman/crontab": "^1.0"
   },
   "require-dev": {
     "monolog/monolog": ">=2.0",
+    "pestphp/pest": "^1.23",
     "webman/console": "^1.2",
     "workerman/webman-framework": "^1.5"
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   }
 }
