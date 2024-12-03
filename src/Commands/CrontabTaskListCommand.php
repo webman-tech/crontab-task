@@ -20,7 +20,10 @@ class CrontabTaskListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
-        $taskViewer = new TaskViewer(config('plugin.webman-tech.crontab-task.process', []));
+        $taskViewer = new TaskViewer(
+            config('plugin.webman-tech.crontab-task.process', []),
+            config('plugin.webman-tech.crontab-task.app.task_viewer_config', [])
+        );
         $data = $taskViewer->getData();
 
         if (!$data) {
@@ -30,7 +33,12 @@ class CrontabTaskListCommand extends Command
 
         $table = new Table($output);
         $table->setHeaders(array_keys($data[0]));
-        $table->setRows($data);
+        $table->setRows(array_map(function (array $item) {
+            if (isset($item['next_due_times'])) {
+                $item['next_due_times'] = implode("\n", $item['next_due_times']);
+            }
+            return $item;
+        }, $data));
         $table->render();
 
         return self::SUCCESS;
