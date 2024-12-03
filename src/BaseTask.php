@@ -2,33 +2,22 @@
 
 namespace WebmanTech\CrontabTask;
 
-use Closure;
 use Throwable;
 use WebmanTech\CrontabTask\Exceptions\TaskException;
 use WebmanTech\CrontabTask\Exceptions\TaskExceptionInterface;
 use WebmanTech\CrontabTask\Traits\LogTrait;
+use WebmanTech\CrontabTask\Traits\TaskAutoFreeMemoryTrait;
+use WebmanTech\CrontabTask\Traits\TaskEventTrait;
 
 abstract class BaseTask
 {
     use LogTrait;
-
-    /**
-     * @var null|Closure
-     */
-    protected ?Closure $eventBeforeExec = null;
-    /**
-     * @var null|Closure
-     */
-    protected ?Closure $eventAfterExec = null;
+    use TaskEventTrait;
+    use TaskAutoFreeMemoryTrait;
 
     final public function __construct()
     {
-        if ($this->eventBeforeExec === null) {
-            $this->eventBeforeExec = config('plugin.webman-tech.crontab-task.app.event.before_exec');
-        }
-        if ($this->eventAfterExec === null) {
-            $this->eventAfterExec = config('plugin.webman-tech.crontab-task.app.event.after_exec');
-        }
+        $this->initEvents();
     }
 
     /**
@@ -38,12 +27,10 @@ abstract class BaseTask
     public static function taskExec()
     {
         $self = new static();
-        $self->log('start');
-        if ($self->eventBeforeExec instanceof Closure) {
-            call_user_func($self->eventBeforeExec, $self);
-        }
 
         try {
+            $self->log('start');
+            $self->fireBeforeEvent();
             $self->handle();
         } catch (Throwable $e) {
             if ($e instanceof TaskExceptionInterface) {
@@ -53,12 +40,15 @@ abstract class BaseTask
 
             $self->log($e, 'error');
             return;
-        }
+        } finally {
+            $self->fireAfterEvent();
 
-        if ($self->eventAfterExec instanceof Closure) {
-            call_user_func($self->eventAfterExec, $self);
+            if ($self->isAutoFreeMemory()) {
+                $self->freeMemory();
+            }
+
+            $self->log('end');
         }
-        $self->log('end');
     }
 
     /**

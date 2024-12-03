@@ -2,6 +2,7 @@
 
 use Tests\Fixtures\EmptyTask;
 use Tests\Fixtures\ExceptionTask;
+use Tests\Fixtures\MultiEventTask;
 use Tests\Fixtures\SimpleTask;
 use Webman\Config;
 
@@ -59,9 +60,19 @@ test('taskExec 执行有异常的情况', function () {
 test('task event', function () {
     Config::load(__DIR__ . '/../Fixtures/config-task-event');
 
+    SimpleTask::$markArr = [];
     SimpleTask::taskExec();
     expect(SimpleTask::$markArr)->toBe([
         'before_exec',
         'after_exec',
+    ]);
+
+    MultiEventTask::$markArr = [];
+    MultiEventTask::taskExec();
+    expect(SimpleTask::$markArr)->toBe([
+        'before_exec',
+        'before',
+        'after_exec',
+        'after',
     ]);
 });
