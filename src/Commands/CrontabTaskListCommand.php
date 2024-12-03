@@ -2,12 +2,11 @@
 
 namespace WebmanTech\CrontabTask\Commands;
 
-use support\Container;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use WebmanTech\CrontabTask\TaskProcess;
+use WebmanTech\CrontabTask\Components\TaskViewer;
 
 class CrontabTaskListCommand extends Command
 {
@@ -21,25 +20,17 @@ class CrontabTaskListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
-        $headers = ['process_name', 'cron', 'task_class'];
+        $taskViewer = new TaskViewer(config('plugin.webman-tech.crontab-task.process', []));
+        $data = $taskViewer->getData();
 
-        $rows = [];
-        $processes = config('plugin.webman-tech.crontab-task.process', []);
-        foreach ($processes as $name => $item) {
-            $handler = $item['handler'];
-            if (!is_a($handler, TaskProcess::class, true)) {
-                continue;
-            }
-            /** @var TaskProcess $process */
-            $process = Container::make($handler, $item['constructor'] ?? []);
-            foreach ($process->getTasks() as [$cron, $task]) {
-                $rows[] = [$name, $cron, $task];
-            }
+        if (!$data) {
+            $output->writeln('No task found');
+            return self::SUCCESS;
         }
 
         $table = new Table($output);
-        $table->setHeaders($headers);
-        $table->setRows($rows);
+        $table->setHeaders(array_keys($data[0]));
+        $table->setRows($data);
         $table->render();
 
         return self::SUCCESS;
