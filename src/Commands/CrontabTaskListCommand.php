@@ -34,10 +34,9 @@ class CrontabTaskListCommand extends Command
         $table = new Table($output);
         $table->setHeaders(array_keys($data[0]));
         $table->setRows(array_map(function (array $item) {
-            if (isset($item['next_due_times'])) {
-                $item['next_due_times'] = implode("\n", $item['next_due_times']);
-            }
-            return $item;
+            return array_map(function ($value) {
+                return is_array($value) ? json_encode($value) : $value;
+            }, $item);
         }, $data));
         $table->render();
 
