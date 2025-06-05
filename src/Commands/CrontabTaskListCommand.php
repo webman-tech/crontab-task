@@ -33,11 +33,7 @@ class CrontabTaskListCommand extends Command
 
         $table = new Table($output);
         $table->setHeaders(array_keys($data[0]));
-        $table->setRows(array_map(function (array $item) {
-            return array_map(function ($value) {
-                return is_array($value) ? json_encode($value) : $value;
-            }, $item);
-        }, $data));
+        $table->setRows(array_map(fn(array $item) => array_map(fn($value) => is_array($value) ? json_encode($value) : $value, $item), $data));
         $table->render();
 
         return self::SUCCESS;

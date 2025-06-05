@@ -6,16 +6,15 @@ use InvalidArgumentException;
 use Workerman\Crontab\Crontab;
 use Workerman\Crontab\Parser;
 
-final class TaskProcess
+final readonly class TaskProcess
 {
-    /**
-     * @var array [[$cron, $task]]
-     */
-    private array $tasks;
-
-    public function __construct(array $tasks)
+    public function __construct(
+        /**
+         * @var array [[$cron, $task]]
+         */
+        private array $tasks
+    )
     {
-        $this->tasks = $tasks;
     }
 
     /**
@@ -48,7 +47,7 @@ final class TaskProcess
     {
         foreach ($this->tasks as [$cron, $task]) {
             /** @var BaseTask $task */
-            new Crontab($cron, [$task, 'taskExec']);
+            new Crontab($cron, $task->taskExec(...));
         }
     }
 }

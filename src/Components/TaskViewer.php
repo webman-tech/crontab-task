@@ -7,15 +7,13 @@ use WebmanTech\CrontabTask\TaskProcess;
 
 final class TaskViewer
 {
-    private array $processes;
     private array $config = [
         'with_next_due' => true,
         'next_due_limit' => 3,
     ];
 
-    public function __construct(array $processes = [], array $config = [])
+    public function __construct(private readonly array $processes = [], array $config = [])
     {
-        $this->processes = $processes;
         $this->config = array_merge($this->config, $config);
     }
 

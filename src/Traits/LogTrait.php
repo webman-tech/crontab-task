@@ -54,7 +54,7 @@ trait LogTrait
             }
         }
 
-        $type = $type ?? $this->logType ?? 'info';
+        $type ??= $this->logType ?? 'info';
         if ($this->logClass) {
             $msg = static::class . ':' . $msg;
         }
