@@ -7,6 +7,7 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WebmanTech\CrontabTask\Components\TaskViewer;
+use WebmanTech\CrontabTask\Helper\ConfigHelper;
 
 class CrontabTaskListCommand extends Command
 {
@@ -18,11 +19,11 @@ class CrontabTaskListCommand extends Command
      * @param OutputInterface $output
      * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output) : int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $taskViewer = new TaskViewer(
-            config('plugin.webman-tech.crontab-task.process', []),
-            config('plugin.webman-tech.crontab-task.app.task_viewer_config', [])
+            ConfigHelper::get('process', []),
+            ConfigHelper::get('app.task_viewer_config', []),
         );
         $data = $taskViewer->getData();
 

@@ -3,9 +3,10 @@
 namespace WebmanTech\CrontabTask\Commands;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
+use WebmanTech\CrontabTask\Helper\ConfigHelper;
 
 class MakeTaskCommand extends Command
 {
@@ -27,10 +28,10 @@ class MakeTaskCommand extends Command
      * @param OutputInterface $output
      * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output) : int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $name = $input->getArgument('name');
-        $savePath = $this->savePath ?: config('plugin.webman-tech.crontab-task.app.command_make.save_path', 'crontab/tasks');
+        $savePath = $this->savePath ?: ConfigHelper::get('app.command_make.save_path', 'crontab/tasks');
 
         $name = str_replace('\\', '/', $name);
         // 将 name 按照 / 分隔，并取最后一个

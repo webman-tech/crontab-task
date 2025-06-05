@@ -5,6 +5,7 @@ namespace WebmanTech\CrontabTask\Traits;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use support\Log;
+use WebmanTech\CrontabTask\Helper\ConfigHelper;
 
 trait LogTrait
 {
@@ -40,7 +41,7 @@ trait LogTrait
         if ($this->logger === null) {
             $config = array_merge(
                 ['channel' => null, 'type' => 'info', 'log_class' => true],
-                array_filter(config('plugin.webman-tech.crontab-task.app.log', []), fn($value) => $value !== null),
+                array_filter(ConfigHelper::get('app.log', []), fn($value) => $value !== null),
                 array_filter(['channel' => $this->logChannel, 'type' => $this->logType, 'log_class' => $this->logClass], fn($value) => $value !== null),
             );
             if (!$config['channel']) {

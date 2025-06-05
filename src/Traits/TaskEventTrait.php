@@ -3,6 +3,7 @@
 namespace WebmanTech\CrontabTask\Traits;
 
 use Closure;
+use WebmanTech\CrontabTask\Helper\ConfigHelper;
 
 trait TaskEventTrait
 {
@@ -32,10 +33,10 @@ trait TaskEventTrait
     {
         // 旧版本单独事件的模式，暂时兼容
         if ($this->eventBeforeExec === null) {
-            $this->eventBeforeExec = $this->disableGlobalBeforeEvent ? null : config('plugin.webman-tech.crontab-task.app.event.before_exec');
+            $this->eventBeforeExec = $this->disableGlobalBeforeEvent ? null : ConfigHelper::get('app.event.before_exec');
         }
         if ($this->eventAfterExec === null) {
-            $this->eventAfterExec = $this->disableGlobalAfterEvent ? null : config('plugin.webman-tech.crontab-task.app.event.after_exec');
+            $this->eventAfterExec = $this->disableGlobalAfterEvent ? null : ConfigHelper::get('app.event.after_exec');
         }
         // 支持多事件
         if ($this->eventBeforeExec !== null) {
