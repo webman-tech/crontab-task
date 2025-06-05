@@ -23,6 +23,6 @@ class TaskException extends Exception implements TaskExceptionInterface
     public function getDataAsString(): string
     {
         $data = $this->getData();
-        return $data ? json_encode($data, JSON_UNESCAPED_UNICODE) : '';
+        return $data ? (string)json_encode($data, JSON_UNESCAPED_UNICODE) : '';
     }
 }

@@ -24,10 +24,15 @@ final class CronParser extends Parser
      * @param int $limit 限制返回数量
      * @return array|int[]
      */
-    public function getNextDueTimes(string $crontabString, int $now = null, int $limit = 5): array
+    public function getNextDueTimes(string $crontabString, ?int $now = null, int $limit = 5): array
     {
-        $startTime = \DateTime::createFromFormat('Y-m-d H:i:0', date('Y-m-d H:i:0', $now ?: time()));
         $nextTimes = [];
+
+        $startTime = \DateTime::createFromFormat('Y-m-d H:i:0', date('Y-m-d H:i:0', $now ?: time()));
+        if ($startTime === false) {
+            return $nextTimes;
+        }
+        
         $maxLoopCount = 60 * 24 * 365; // 1年
         while (true) {
             $maxLoopCount--;
