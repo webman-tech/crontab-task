@@ -15,7 +15,7 @@ trait TaskAutoFreeMemoryTrait
     protected function isAutoFreeMemory(): bool
     {
         if ($this->isAutoFreeMemory === null) {
-            $this->isAutoFreeMemory = ConfigHelper::get('app.auto_free_memory', false);
+            $this->isAutoFreeMemory = (bool)ConfigHelper::get('app.auto_free_memory', false);
         }
         return $this->isAutoFreeMemory;
     }
