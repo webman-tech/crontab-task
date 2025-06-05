@@ -23,7 +23,7 @@ class CrontabTaskExecCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $task = $input->getArgument('task');
+        $task = (string)$input->getArgument('task');
         if (!is_a($task, BaseTask::class, true)) {
             throw new \RuntimeException('task must be a subclass of ' . BaseTask::class);
         }

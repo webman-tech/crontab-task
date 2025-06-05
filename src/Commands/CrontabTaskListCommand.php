@@ -21,8 +21,8 @@ class CrontabTaskListCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $taskViewer = new TaskViewer(
-            ConfigHelper::get('process', []),
-            ConfigHelper::get('app.task_viewer_config', []),
+            (array)ConfigHelper::get('process', []),
+            (array)ConfigHelper::get('app.task_viewer_config', []),
         );
         $data = $taskViewer->getData();
 

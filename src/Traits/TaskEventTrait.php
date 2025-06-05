@@ -29,13 +29,18 @@ trait TaskEventTrait
      */
     protected array $eventsAfterExec = [];
 
-    protected function initEvents(): void
+    /**
+     * @return void
+     */
+    protected function initEvents()
     {
         // 旧版本单独事件的模式，暂时兼容
         if ($this->eventBeforeExec === null) {
+            /** @phpstan-ignore-next-line */
             $this->eventBeforeExec = $this->disableGlobalBeforeEvent ? null : ConfigHelper::get('app.event.before_exec');
         }
         if ($this->eventAfterExec === null) {
+            /** @phpstan-ignore-next-line */
             $this->eventAfterExec = $this->disableGlobalAfterEvent ? null : ConfigHelper::get('app.event.after_exec');
         }
         // 支持多事件
@@ -47,24 +52,36 @@ trait TaskEventTrait
         }
     }
 
-    protected function addBeforeEvent(Closure $closure): void
+    /**
+     * @return void
+     */
+    protected function addBeforeEvent(Closure $closure)
     {
         $this->eventsBeforeExec[] = $closure;
     }
 
-    protected function addAfterEvent(Closure $closure): void
+    /**
+     * @return void
+     */
+    protected function addAfterEvent(Closure $closure)
     {
         $this->eventsAfterExec[] = $closure;
     }
 
-    protected function fireBeforeEvent(): void
+    /**
+     * @return void
+     */
+    protected function fireBeforeEvent()
     {
         foreach ($this->eventsBeforeExec as $event) {
             $event($this);
         }
     }
 
-    protected function fireAfterEvent(): void
+    /**
+     * @return void
+     */
+    protected function fireAfterEvent()
     {
         foreach ($this->eventsAfterExec as $event) {
             $event($this);

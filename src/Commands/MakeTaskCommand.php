@@ -29,10 +29,10 @@ class MakeTaskCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $name = $input->getArgument('name');
-        $savePath = $this->savePath ?: ConfigHelper::get('app.command_make.save_path', 'crontab/tasks');
+        $name = (string)$input->getArgument('name');
+        $savePath = $this->savePath ?: (string)ConfigHelper::get('app.command_make.save_path', 'crontab/tasks');
 
-        $name = str_replace('\\', '/', $name);
+        $name = (string)str_replace('\\', '/', $name);
         // 将 name 按照 / 分隔，并取最后一个
         $paths = explode('/', $name);
         $name = ucfirst(array_pop($paths));

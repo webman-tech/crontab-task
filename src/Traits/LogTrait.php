@@ -41,16 +41,16 @@ trait LogTrait
         if ($this->logger === null) {
             $config = array_merge(
                 ['channel' => null, 'type' => 'info', 'log_class' => true],
-                array_filter(ConfigHelper::get('app.log', []), fn($value) => $value !== null),
+                array_filter((array)ConfigHelper::get('app.log', []), fn($value) => $value !== null),
                 array_filter(['channel' => $this->logChannel, 'type' => $this->logType, 'log_class' => $this->logClass], fn($value) => $value !== null),
             );
             if (!$config['channel']) {
                 $this->logger = new NullLogger();
             } else {
-                $this->logChannel = $config['channel'];
+                $this->logChannel = (string)$config['channel'];
                 $this->logType = $config['type'];
                 $this->logClass = $config['log_class'];
-                $this->logger = Log::channel($config['channel']);
+                $this->logger = Log::channel((string)$config['channel']);
             }
         }
 
