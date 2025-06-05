@@ -36,7 +36,7 @@ trait LogTrait
      * @param string|null $type
      * @return void
      */
-    protected function log(string $msg, string $type = 'info')
+    protected function log(string $msg, ?string $type = null)
     {
         if ($this->logger === null) {
             $config = array_merge(
@@ -54,7 +54,7 @@ trait LogTrait
             }
         }
 
-        $type = $type ?? $this->logType;
+        $type = $type ?? $this->logType ?? 'info';
         if ($this->logClass) {
             $msg = static::class . ':' . $msg;
         }
