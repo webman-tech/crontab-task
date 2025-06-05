@@ -20,7 +20,7 @@ trait TaskAutoFreeMemoryTrait
         return $this->isAutoFreeMemory;
     }
 
-    protected function freeMemory()
+    protected function freeMemory(): void
     {
         gc_mem_caches();
     }

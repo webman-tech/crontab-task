@@ -23,7 +23,7 @@ final class TaskProcess
      * @param array $tasks
      * @return void
      */
-    public static function checkTasks(array $tasks)
+    public static function checkTasks(array $tasks): void
     {
         $parser = new Parser();
         foreach ($tasks as [$cron, $task]) {
@@ -44,7 +44,7 @@ final class TaskProcess
         return $this->tasks;
     }
 
-    public function onWorkerStart()
+    public function onWorkerStart(): void
     {
         foreach ($this->tasks as [$cron, $task]) {
             /** @var BaseTask $task */

@@ -2,6 +2,7 @@
 
 namespace WebmanTech\CrontabTask\Commands;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -9,11 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use WebmanTech\CrontabTask\Components\TaskViewer;
 use WebmanTech\CrontabTask\Helper\ConfigHelper;
 
+#[AsCommand(name: 'crontab-task:list', description: '展示 cron task 进程的定时任务名和执行时间')]
 class CrontabTaskListCommand extends Command
 {
-    protected static $defaultName = 'crontab-task:list';
-    protected static $defaultDescription = '展示 cron task 进程的定时任务名和执行时间';
-
     /**
      * @param InputInterface $input
      * @param OutputInterface $output

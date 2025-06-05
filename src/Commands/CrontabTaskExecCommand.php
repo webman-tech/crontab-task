@@ -2,16 +2,15 @@
 
 namespace WebmanTech\CrontabTask\Commands;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WebmanTech\CrontabTask\BaseTask;
 
+#[AsCommand(name: 'crontab-task:exec', description: '执行一个 task')]
 class CrontabTaskExecCommand extends Command
 {
-    protected static $defaultName = 'crontab-task:exec';
-    protected static $defaultDescription = '执行一个 task';
-
     protected function configure()
     {
         $this->addArgument('task', null, 'task className');
@@ -22,7 +21,7 @@ class CrontabTaskExecCommand extends Command
      * @param OutputInterface $output
      * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output) : int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $task = $input->getArgument('task');
         if (!is_a($task, BaseTask::class, true)) {

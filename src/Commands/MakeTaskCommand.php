@@ -2,17 +2,16 @@
 
 namespace WebmanTech\CrontabTask\Commands;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WebmanTech\CrontabTask\Helper\ConfigHelper;
 
+#[AsCommand(name: 'make:crontab-task', description: 'Make crontab task')]
 class MakeTaskCommand extends Command
 {
-    protected static $defaultName = 'make:crontab-task';
-    protected static $defaultDescription = 'Make crontab task';
-
     protected ?string $savePath = null;
 
     /**
@@ -53,13 +52,7 @@ class MakeTaskCommand extends Command
         return self::SUCCESS;
     }
 
-    /**
-     * @param $name
-     * @param $namespace
-     * @param $file
-     * @return void
-     */
-    protected function createFile($name, $namespace, $file)
+    protected function createFile(string $name, string $namespace, string $file): void
     {
         $path = pathinfo($file, PATHINFO_DIRNAME);
         if (!is_dir($path)) {

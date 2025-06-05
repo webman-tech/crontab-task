@@ -7,9 +7,9 @@ use Throwable;
 
 class TaskException extends Exception implements TaskExceptionInterface
 {
-    protected $data = [];
+    protected array $data = [];
 
-    public function __construct($message = "Task Error", array $data = [], $code = 0, Throwable $previous = null)
+    public function __construct(string $message = "Task Error", array $data = [], int $code = 0, ?Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->data = $data;

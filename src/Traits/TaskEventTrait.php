@@ -29,7 +29,7 @@ trait TaskEventTrait
      */
     protected array $eventsAfterExec = [];
 
-    protected function initEvents()
+    protected function initEvents(): void
     {
         // 旧版本单独事件的模式，暂时兼容
         if ($this->eventBeforeExec === null) {
@@ -47,24 +47,24 @@ trait TaskEventTrait
         }
     }
 
-    protected function addBeforeEvent(Closure $closure)
+    protected function addBeforeEvent(Closure $closure): void
     {
         $this->eventsBeforeExec[] = $closure;
     }
 
-    protected function addAfterEvent(Closure $closure)
+    protected function addAfterEvent(Closure $closure): void
     {
         $this->eventsAfterExec[] = $closure;
     }
 
-    protected function fireBeforeEvent()
+    protected function fireBeforeEvent(): void
     {
         foreach ($this->eventsBeforeExec as $event) {
             $event($this);
         }
     }
 
-    protected function fireAfterEvent()
+    protected function fireAfterEvent(): void
     {
         foreach ($this->eventsAfterExec as $event) {
             $event($this);
