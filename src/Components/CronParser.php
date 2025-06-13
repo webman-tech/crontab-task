@@ -12,7 +12,7 @@ final class CronParser extends Parser
      * @param int|null $now
      * @return int|null
      */
-    public function getNextDueTime(string $crontabString, int $now = null): ?int
+    public function getNextDueTime(string $crontabString, ?int $now = null): ?int
     {
         return $this->getNextDueTimes($crontabString, $now, 1)[0] ?? null;
     }
