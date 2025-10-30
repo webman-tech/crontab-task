@@ -10,7 +10,7 @@ final readonly class TaskProcess
 {
     public function __construct(
         /**
-         * @var array [[$cron, $task]]
+         * @var array<int, array<string, class-string<BaseTask>>>
          */
         private array $tasks
     )
@@ -46,8 +46,7 @@ final readonly class TaskProcess
     public function onWorkerStart(): void
     {
         foreach ($this->tasks as [$cron, $task]) {
-            /** @var BaseTask $task */
-            new Crontab($cron, $task->taskExec(...));
+            new Crontab($cron, fn() => $task::taskExec());
         }
     }
 }
