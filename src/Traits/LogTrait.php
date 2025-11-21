@@ -4,7 +4,7 @@ namespace WebmanTech\CrontabTask\Traits;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use support\Log;
+use WebmanTech\CommonUtils\Log;
 use WebmanTech\CrontabTask\Helper\ConfigHelper;
 
 trait LogTrait

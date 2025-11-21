@@ -2,6 +2,8 @@
 
 namespace WebmanTech\CrontabTask\Helper;
 
+use function WebmanTech\CommonUtils\config;
+
 /**
  * @internal
  */
