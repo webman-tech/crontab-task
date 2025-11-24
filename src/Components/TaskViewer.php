@@ -23,7 +23,7 @@ final class TaskViewer
 
         foreach ($this->processes as $name => $item) {
             $handler = $item['handler'];
-            if (!is_a($handler, TaskProcess::class, true)) {
+            if (!is_string($handler) || !is_a($handler, TaskProcess::class, true)) {
                 continue;
             }
             $cronParser = new CronParser();
