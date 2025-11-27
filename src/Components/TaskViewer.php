@@ -28,7 +28,7 @@ final class TaskViewer
             }
             $cronParser = new CronParser();
             /** @var TaskProcess $process */
-            $process = Container::make($handler, $item['constructor'] ?? []);
+            $process = Container::getCurrent()->make($handler, $item['constructor'] ?? []);
             foreach ($process->getTasks() as [$cron, $task]) {
                 $item = [
                     'process_name' => $name,
