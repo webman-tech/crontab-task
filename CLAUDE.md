@@ -65,7 +65,7 @@ php webman crontab-task:exec <taskClassName>
 - `copy/`：配置文件模板
 - `src/Install.php`：Webman 安装脚本
 
-测试文件位于项目根目录的 `tests/Unit/CrontabTask/`。
+测试文件位于项目根目录的 `tests/Unit/CrontabTask/`。测试环境配置和 Helper 函数详见根目录 [CLAUDE.md](../../CLAUDE.md) 的测试相关章节。
 
 ## 代码风格
 
@@ -77,4 +77,3 @@ php webman crontab-task:exec <taskClassName>
 2. **日志记录**：任务开始、结束、异常都会记录日志
 3. **内存管理**：任务执行后会自动释放内存
 4. **事件机制**：可以通过事件监听任务执行状态
-5. **测试位置**：单元测试在项目根目录的 `tests/Unit/CrontabTask/` 下，而非包内
