@@ -34,30 +34,17 @@ php webman make:crontab-task <name>
 php webman crontab-task:exec <taskClassName>
 ```
 
-## 项目架构
-
-### 核心组件
-- **Schedule**：调度器，管理定时任务
-- **BaseTask**：任务基类
-- **CronParser**：Cron 表达式解析
-- **TaskViewer**：任务查看器
-- **Commands**：
-  - `CrontabTaskListCommand`：查看任务列表
-  - `MakeTaskCommand`：创建新任务
-  - `CrontabTaskExecCommand`：手动执行任务
-
-### 目录结构
+## 目录结构
 - `src/`：
-  - `Schedule.php`：调度器
-  - `BaseTask.php`：任务基类
-  - `TaskProcess.php`：任务进程
-  - `Components/`：组件
-    - `CronParser.php`：Cron 解析器
-    - `TaskViewer.php`：任务查看器
-  - `Commands/`：命令行工具
-  - `Helper/`：助手类
-  - `Traits/`：特性
+  - `Schedule.php`：调度器，管理定时任务注册与执行
+  - `BaseTask.php`：任务基类，业务任务继承此类
+  - `TaskProcess.php`：Webman process 入口
+  - `Components/`：CronParser（Cron 表达式解析）/TaskViewer（任务信息展示）
+  - `Commands/`：命令行工具（list/exec/make）
+  - `Traits/`：LogTrait/TaskAutoFreeMemoryTrait/TaskEventTrait
+  - `Tasks/`：SampleTask 示例任务
   - `Exceptions/`：异常类
+  - `Helper/`：ConfigHelper
 - `copy/`：配置文件模板
 - `src/Install.php`：Webman 安装脚本
 
