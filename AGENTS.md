@@ -50,6 +50,27 @@ php webman crontab-task:exec <taskClassName>
 
 测试文件位于项目根目录的 `tests/Unit/CrontabTask/`。测试环境配置和 Helper 函数详见根目录 [AGENTS.md](../../AGENTS.md) 的测试相关章节。
 
+## 工作流程
+
+```
+config/plugin/crontab-task.php
+    │ 注册 TaskProcess 进程
+    ▼
+TaskProcess (Webman Process 启动)
+    │
+    ▼
+Schedule::register() ──→ 注册 BaseTask 子类
+    │
+    ▼
+Cron 表达式触发
+    │
+    ▼
+BaseTask::run()
+    ├── TaskEventTrait    (before / after 事件)
+    ├── LogTrait          (开始 / 结束 / 异常日志)
+    └── TaskAutoFreeMemoryTrait (执行后释放内存)
+```
+
 ## 代码风格
 
 与根项目保持一致，详见根目录 [AGENTS.md](../../AGENTS.md)。
