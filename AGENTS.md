@@ -46,6 +46,8 @@ php webman crontab-task:exec <taskClassName>
   - `Exceptions/`：异常类
   - `Helper/`：ConfigHelper
 - `copy/`：配置文件模板
+- `skills/`：AI 技能
+  - `webman-tech-crontab-task-best-practices`：crontab-task 使用的最佳实践
 - `src/Install.php`：Webman 安装脚本
 
 测试文件位于项目根目录的 `tests/Unit/CrontabTask/`。测试环境配置和 Helper 函数详见根目录 [AGENTS.md](../../AGENTS.md) 的测试相关章节。
