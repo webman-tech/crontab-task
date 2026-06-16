@@ -10,7 +10,7 @@ final readonly class TaskProcess
 {
     public function __construct(
         /**
-         * @var array<int, array<string, class-string<BaseTask>>>
+         * @var list<array{0: string, 1: class-string<BaseTask>}>
          */
         private array $tasks
     )
